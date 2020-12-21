@@ -1,0 +1,47 @@
+<template>
+<div>
+    <app-promiseCard v-bind:posts="posts"</app-promiseCard>
+</div>
+</template>
+
+<script>
+import JetApplicationLogo from "./../Jetstream/ApplicationLogo";
+import PromiseCardList from "./components/PromiseCardList";
+
+export default {
+    components: {
+        JetApplicationLogo,
+        "app-promiseCard": PromiseCardList,
+    },
+
+    data() {
+        return {
+            title: "Posts",
+            posts: []
+        };
+    },
+
+    methods: {
+        fetchPosts() {
+            fetch("https://jsonplaceholder.typicode.com/posts")
+                .then(response => response.json())
+                .then(posts => {
+                    this.posts = posts;
+                });
+        }
+    },
+
+    created() {
+        this.fetchPosts();
+    }
+};
+</script>
+
+<!-- global styles -->
+
+<style>
+body {
+    margin: 0;
+    font-family: "Nunito SemiBold";
+}
+</style>
